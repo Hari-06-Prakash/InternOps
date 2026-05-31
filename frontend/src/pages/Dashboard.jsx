@@ -4,12 +4,14 @@ import Attendance from './Attendance'
 import Ratings from './Ratings'
 import Tasks from './Tasks'
 import AdminDashboard from './admin/AdminDashboard'
+import Reports from './admin/Reports'
 const isAdmin = JSON.parse(localStorage.getItem('user')||'{}').role === 'ADMIN';
 const nav = [
   { path:'/', label:'Dashboard' },
   { path:'/attendance', label:'Attendance' },
   { path:'/ratings', label:'Ratings' },
   { path:'/tasks', label:'Tasks' },
+  { path:'/reports', label:'Reports' },
   ...(isAdmin ? [{ path:'/admin', label:'Admin Panel' }] : [])
 ]
 export default function Dashboard() {
@@ -29,10 +31,12 @@ export default function Dashboard() {
           <Route index element={<Home />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="ratings" element={<Ratings />} />
-          <Route path="tasks" element={<Tasks />} />`n          {isAdmin && <Route path="admin" element={<AdminDashboard />} />}
+          <Route path="tasks" element={<Tasks />} />
+          <Route path="reports" element={<Reports />} />`n          {isAdmin && <Route path="admin" element={<AdminDashboard />} />}
         </Routes>
       </main>
     </div>
   )
 }
+
 
