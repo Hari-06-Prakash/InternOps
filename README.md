@@ -335,5 +335,5 @@ InternOps is proprietary software developed for the Uptoskills ecosystem. All ri
 
 ---
 
-**Maintainers:** Rajat 
+**Maintainers:** Rajat Wyrm  
 **Contact:** [GitHub Issues](https://github.com/rajat-wyrm/InternOps/issues)
