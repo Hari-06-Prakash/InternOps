@@ -1,4 +1,13 @@
+// loadEnvironment();
 require("dotenv").config();
+
+// validateEnvironment();
+const validateEnv = require("./config/validateEnv");
+validateEnv();
+
+// initializeDatabase();
+const db = require("./config/db");
+
 const Fastify = require("fastify");
 const config = require("./config");
 const app = Fastify({
@@ -8,6 +17,7 @@ const app = Fastify({
       : true,
   genReqId: () => require("uuid").v4(),
 });
+// registerPlugins();
 app.register(require("@fastify/cors"), {
   origin: config.nodeEnv === "production" ? config.corsOrigin : true,
   credentials: true,
@@ -48,6 +58,7 @@ app.register(require("@fastify/swagger"), {
   openapi: { info: { title: "InternOps API", version: "1.0.0" } },
 });
 app.register(require("@fastify/swagger-ui"), { routePrefix: "/docs" });
+// registerRoutes();
 app.register(require("./modules/auth/routes"), { prefix: "/api/auth" });
 app.register(require("./modules/users/routes"), { prefix: "/api/users" });
 app.register(require("./modules/departments/routes"), {
@@ -144,6 +155,7 @@ app.setErrorHandler((err, req, reply) => {
 if (process.env.NODE_ENV !== "test") {
   require("./utils/cron").setupCronJobs();
 }
+// startServer();
 const start = async () => {
   try {
     await app.listen({ port: config.port, host: config.host });

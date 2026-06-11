@@ -1,4 +1,4 @@
-﻿require('dotenv').config();
+require('dotenv').config();
 
 function buildRedisUrl() {
   const restUrl = process.env.UPSTASH_REDIS_REST_URL;
@@ -12,7 +12,7 @@ function buildRedisUrl() {
 module.exports = {
   port: parseInt(process.env.PORT, 10) || 5000,
   host: process.env.HOST || '0.0.0.0',
-  nodeEnv: process.env.NODE_ENV || 'development',
+  nodeEnv: process.env.NODE_ENV,
   databaseUrl: process.env.DATABASE_URL,
   jwt: {
     secret: process.env.JWT_SECRET,
