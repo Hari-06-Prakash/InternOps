@@ -1,5 +1,24 @@
 ﻿require('dotenv').config();
 
+// Fail fast — both secrets must be explicitly set and must differ.
+// We check this at module load time so a misconfigured deploy fails
+// immediately on startup rather than silently issuing insecure tokens.
+(function validateJwtSecrets() {
+  const access = process.env.JWT_SECRET;
+  const refresh = process.env.JWT_REFRESH_SECRET;
+  const missing = [];
+  if (!access)  missing.push('JWT_SECRET');
+  if (!refresh) missing.push('JWT_REFRESH_SECRET');
+  if (missing.length) {
+    console.error(`FATAL: Missing required environment variables: ${missing.join(', ')}`);
+    process.exit(1);
+  }
+  if (access === refresh) {
+    console.error('FATAL: JWT_SECRET and JWT_REFRESH_SECRET must be different values.');
+    process.exit(1);
+  }
+})();
+
 function buildRedisUrl() {
   const restUrl = process.env.UPSTASH_REDIS_REST_URL;
   const token = process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -18,9 +37,9 @@ module.exports = {
     secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
     accessSecret: process.env.JWT_SECRET,
-    refreshSecret: process.env.JWT_SECRET + '_refresh',
+    refreshSecret: process.env.JWT_REFRESH_SECRET,   // must be set — validated above
     accessExpiry: '15m',
-    refreshExpiry: process.env.JWT_EXPIRES_IN || '7d',
+    refreshExpiry: process.env.JWT_REFRESH_EXPIRES_IN || process.env.JWT_EXPIRES_IN || '7d',
   },
   apiKey: process.env.API_KEY,
   uploadDir: process.env.UPLOAD_DIR || 'uploads',
