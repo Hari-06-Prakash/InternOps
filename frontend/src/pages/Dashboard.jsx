@@ -19,6 +19,7 @@ import AuditLog from './admin/AuditLog'
 import Exports from './admin/Exports'
 import Departments from './admin/Departments'
 import useAuthStore from '../store/auth'
+import InternOpsAssistant from '../components/InternOpsAssistant'
 
 const ROLE_LABEL = { ADMIN: 'Admin', SENIOR_TL: 'Senior TL', TL: 'Team Lead', CAPTAIN: 'Captain', INTERN: 'Intern' }
 
@@ -41,6 +42,7 @@ const adminNav = [
   { path: '/analytics', label: 'Analytics', icon: '📊' },
   { path: '/audit', label: 'Audit Log', icon: '🧾' },
   { path: '/exports', label: 'Exports', icon: '⬇️' },
+  { path: '/assistant', label: 'AI Assistant', icon: '🤖' },
 ]
 
 function initials(u) {
@@ -157,9 +159,9 @@ export default function Dashboard() {
         </header>
 
         {/* Content */}
-        <main key={loc.pathname} className="flex-1 p-6 overflow-auto animate-fade-in-up">
+        <main key={loc.pathname} className="flex-1 overflow-auto animate-fade-in-up">
           <Routes>
-            <Route index element={<Home />} />
+            <Route index element={<div className="p-6"><Home /></div>} />
             {isManager && <Route path="team" element={<Team />} />}
             <Route path="attendance" element={<Attendance />} />
             <Route path="ratings" element={<Ratings />} />
@@ -169,6 +171,8 @@ export default function Dashboard() {
             <Route path="profile" element={<Profile />} />
             <Route path="sessions" element={<Sessions />} />
             <Route path="reports" element={<Reports />} />
+             <Route path="assistant" element={<InternOpsAssistant />} />
+} />
             {isAdmin && (
               <>
                 <Route path="admin" element={<AdminDashboard />} />
