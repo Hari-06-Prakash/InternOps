@@ -63,7 +63,7 @@ const nav = [
 ];
 
 const adminNav = [
-  { path: '/admin', label: 'Admin Panel', },
+  { path: '/admin', label: 'Admin Panel' },
   { path: '/departments', label: 'Departments' },
   { path: '/audit', label: 'Audit Log' },
   { path: '/assistant', label: 'AI Assistant' },
