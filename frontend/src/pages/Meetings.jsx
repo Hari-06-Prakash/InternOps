@@ -210,10 +210,11 @@ export default function Meetings() {
                       type="button"
                       key={m.id}
                       onClick={() => toggle(m.id)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${attendees.includes(m.id)
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                        attendees.includes(m.id)
                           ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-600/20 ring-offset-1'
                           : 'bg-white text-gray-600 border border-gray-200 hover:border-blue-300 hover:bg-blue-50'
-                        }`}
+                      }`}
                     >
                       {m.full_name || m.email}
                     </button>
@@ -290,8 +291,12 @@ export default function Meetings() {
               )}
               <div className="flex items-center gap-1.5 text-xs font-medium text-gray-500 mt-4 pt-4 border-t border-gray-50">
                 <Clock className="w-3.5 h-3.5 text-gray-400" />
-                {m.startTime || m.start_time ? formatTime12h(m.startTime || m.start_time) : 'TBD'}
-                {(m.endTime || m.end_time) ? ` – ${formatTime12h(m.endTime || m.end_time)}` : ''}
+                {m.startTime || m.start_time
+                  ? formatTime12h(m.startTime || m.start_time)
+                  : 'TBD'}
+                {m.endTime || m.end_time
+                  ? ` – ${formatTime12h(m.endTime || m.end_time)}`
+                  : ''}
               </div>
             </Card>
           ))}

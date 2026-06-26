@@ -79,11 +79,11 @@ api.interceptors.response.use(
     const original = err.config || {};
     const status = err.response?.status;
 
-    const isAuthRoute = original.url && (
-      original.url.includes('/auth/login') ||
-      original.url.includes('/auth/refresh') ||
-      original.url.includes('/auth/register')
-    );
+    const isAuthRoute =
+      original.url &&
+      (original.url.includes('/auth/login') ||
+        original.url.includes('/auth/refresh') ||
+        original.url.includes('/auth/register'));
 
     if (status === 401 && !original._retry && !isAuthRoute) {
       original._retry = true;
